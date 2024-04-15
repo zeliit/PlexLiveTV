@@ -25,8 +25,7 @@ alive_m3U_path = settings["alive_m3U_path"]
 alive_yaml_path = settings["alive_yaml_path"]
 
 settings = config['SPOTV']
-spotv_m3u_url = settings["spotv_m3u_url"]
-spotv_m3u_path = settings["spotv_m3u_path"]
+spotv_yaml_url = settings["spotv_yaml_url"]
 spotv_yaml_path = settings["spotv_yaml_path"]
 
 settings = config['CPPL']
@@ -73,7 +72,7 @@ def make_yaml(show_data, target_path):
     with open(target_path, 'w', encoding="utf-8") as outfile:
         yaml.dump(show_data, outfile, sort_keys=False, allow_unicode=True)
 
-# 스포티비 썸네일 얻기
+# 스포티비 썸네일 얻기(klive_plus)
 def get_spotv_thumb(param):    
     if 'ch_id=9' in param:
         return 'https://cdn.spotvnow.co.kr/src/upload/image/20211215/710e7a39f7910d4d828047e1222e2dce.png'
@@ -385,9 +384,10 @@ if alive_m3u_url:
     get_yaml_from_alive_m3u(alive_m3U_path, alive_yaml_path)
 
 # 스포티비 yaml 작성
-if spotv_m3u_url:
-    save_response_to_file(spotv_m3u_url, spotv_m3u_path)
-    get_yaml_from_spotv_m3u(spotv_m3u_path, spotv_yaml_path)
+if spotv_yaml_url:
+    save_response_to_file(spotv_yaml_url, spotv_yaml_path)
+    update_yaml(spotv_yaml_path, 'title', '스포티비')
+    update_yaml(spotv_yaml_path, 'posters', f'{image_server_url}/poster/SPOTV.webp')    
 
 # 쿠팡플레이 yaml 작성
 if cppl_yaml_url:
