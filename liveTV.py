@@ -72,7 +72,7 @@ def make_yaml(show_data, target_path):
     with open(target_path, 'w', encoding="utf-8") as outfile:
         yaml.dump(show_data, outfile, sort_keys=False, allow_unicode=True)
 
-# 스포티비 썸네일 얻기(klive_plus)
+# 스포티비 썸네일 얻기(klive_plus용)
 def get_spotv_thumb(param):    
     if 'ch_id=9' in param:
         return 'https://cdn.spotvnow.co.kr/src/upload/image/20211215/710e7a39f7910d4d828047e1222e2dce.png'
@@ -103,7 +103,7 @@ def get_spotv_thumb(param):
 #     get_thumb_from_url(ch_id, param)
 #     return f'{image_server_url}/{ch_id}.jpg'    
 
-# 스포티비 m3u를 plex용 yaml로 변환
+# 스포티비 m3u를 plex용 yaml로 변환(klive_plus용)
 def get_yaml_from_spotv_m3u(m3u_path, yaml_path):
 
     extra_data = []
