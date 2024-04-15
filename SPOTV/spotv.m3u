@@ -1,0 +1,33 @@
+#EXTM3U
+#EXTINF:-1 tvg-id="spotv|9" tvg-name="스포타임 풋볼 하이라이트 (주간 H/L) (SPOTV)" tvg-logo="" group-title="SPOTV" tvg-chno="2" tvh-chnum="2",스포타임 풋볼 하이라이트 (주간 H/L) (SPOTV)
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=9&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|10" tvg-name="2024 양궁 국가대표 최종 2차 평가전 남자 리커브 (SPOTV2)" tvg-logo="" group-title="SPOTV" tvg-chno="3" tvh-chnum="3",2024 양궁 국가대표 최종 2차 평가전 남자 리커브 (SPOTV2)
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=10&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|11" tvg-name="2024 ATP 롤렉스 몬테카를로 마스터스 결승 루드:치치파스 (SPOTV Golf & Health)" tvg-logo="" group-title="SPOTV" tvg-chno="4" tvh-chnum="4",2024 ATP 롤렉스 몬테카를로 마스터스 결승 루드:치치파스 (SPOTV Golf & Health)
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=11&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|1" tvg-name="2024 메이저리그 샌디에이고:LA 다저스 (SPOTV PRIME)" tvg-logo="" group-title="SPOTV" tvg-chno="5" tvh-chnum="5",2024 메이저리그 샌디에이고:LA 다저스 (SPOTV PRIME)
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=1&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|2" tvg-name="23-24 프리미어리그 라운드 하이라이트 (33R) (SPOTV PRIME2)" tvg-logo="" group-title="SPOTV" tvg-chno="6" tvh-chnum="6",23-24 프리미어리그 라운드 하이라이트 (33R) (SPOTV PRIME2)
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=2&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|15" tvg-name="2024 메이저리그 피츠버그:필라델피아 (4/14) (SPOTV PRIME+)" tvg-logo="" group-title="SPOTV" tvg-chno="7" tvh-chnum="7",2024 메이저리그 피츠버그:필라델피아 (4/14) (SPOTV PRIME+)
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=15&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|3" tvg-name="NBA REGULAR SEASON Hawks vs Pacers Tape April 14th 2024 (NBA TV)" tvg-logo="" group-title="SPOTV" tvg-chno="8" tvh-chnum="8",NBA REGULAR SEASON Hawks vs Pacers Tape April 14th 2024 (NBA TV)
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=3&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|28511" tvg-name="[세리에A] AS 로마 vs 우디네세 칼초 (2024-04-15 01:00~) " tvg-logo="" group-title="SPOTV" tvg-chno="9" tvh-chnum="9",[세리에A] AS 로마 vs 우디네세 칼초 (2024-04-15 01:00~) 
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=28511&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|28437" tvg-name="[MLB] 애리조나 다이아몬드백스 vs 세인트루이스 카디널스 (2024-04-15 05:10~) " tvg-logo="" group-title="SPOTV" tvg-chno="10" tvh-chnum="10",[MLB] 애리조나 다이아몬드백스 vs 세인트루이스 카디널스 (2024-04-15 05:10~) 
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=28437&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|28438" tvg-name="[MLB] LA 다저스 vs 샌디에이고 파드리스 (2024-04-15 08:45~) " tvg-logo="" group-title="SPOTV" tvg-chno="11" tvh-chnum="11",[MLB] LA 다저스 vs 샌디에이고 파드리스 (2024-04-15 08:45~) 
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=28438&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|28620" tvg-name="[ITTF 탁구 월드컵] 조별리그 신유빈 경기 (2024-04-15 10:30~) " tvg-logo="" group-title="SPOTV" tvg-chno="12" tvh-chnum="12",[ITTF 탁구 월드컵] 조별리그 신유빈 경기 (2024-04-15 10:30~) 
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=28620&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|28621" tvg-name="[ITTF 탁구 월드컵] 조별리그 주천희 경기 (2024-04-15 14:10~) " tvg-logo="" group-title="SPOTV" tvg-chno="13" tvh-chnum="13",[ITTF 탁구 월드컵] 조별리그 주천희 경기 (2024-04-15 14:10~) 
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=28621&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|28619" tvg-name="[SA 베이스볼5 아시아컵] 대한민국 vs 일본 (2024-04-15 14:30~) " tvg-logo="" group-title="SPOTV" tvg-chno="14" tvh-chnum="14",[SA 베이스볼5 아시아컵] 대한민국 vs 일본 (2024-04-15 14:30~) 
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=28619&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|28622" tvg-name="[ITTF 탁구 월드컵] 조별리그 전지희 경기 (2024-04-15 18:40~) " tvg-logo="" group-title="SPOTV" tvg-chno="15" tvh-chnum="15",[ITTF 탁구 월드컵] 조별리그 전지희 경기 (2024-04-15 18:40~) 
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=28622&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|28439" tvg-name="4강 플레이오프 (2024-04-15 19:00~) " tvg-logo="" group-title="SPOTV" tvg-chno="16" tvh-chnum="16",4강 플레이오프 (2024-04-15 19:00~) 
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=28439&apikey=XWGIP8FAB4
+#EXTINF:-1 tvg-id="spotv|28623" tvg-name="[ITTF 탁구 월드컵] 조별리그 장우진, 안재현 경기 (2024-04-15 22:20~) " tvg-logo="" group-title="SPOTV" tvg-chno="17" tvh-chnum="17",[ITTF 탁구 월드컵] 조별리그 장우진, 안재현 경기 (2024-04-15 22:20~) 
+https://ff.bonik.me/klive_plus/api/url.m3u8?source=spotv&ch_id=28623&apikey=XWGIP8FAB4

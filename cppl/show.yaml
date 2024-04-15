@@ -1,0 +1,38 @@
+code: coupangplay
+extras:
+- mode: m3u8
+  param: https://ff.bonik.me/ff_cpp/api/url.m3u8?ch_id=5ec4d76b-8e62-4220-9a58-fec29f5ae8ce&type_name=CHANNEL&apikey=XWGIP8FAB4
+  thumb: https://img.coupangstreaming.com/events/5ec4d76b-8e62-4220-9a58-fec29f5ae8ce/story-art/80f48039-aaed-4ef6-bb0d-978325f89f97.jpeg
+  title: 서울경제TV
+  type: featurette
+- mode: m3u8
+  param: https://ff.bonik.me/ff_cpp/api/url.m3u8?ch_id=322a2b7f-dd0e-4ce2-88b3-71944c8bf1fa&type_name=CHANNEL&apikey=XWGIP8FAB4
+  thumb: https://img.coupangstreaming.com/events/322a2b7f-dd0e-4ce2-88b3-71944c8bf1fa/story-art/e8dadf23-ef88-4967-b291-5eabaab165dd.jpeg
+  title: 매일경제TV
+  type: featurette
+- mode: m3u8
+  param: https://ff.bonik.me/ff_cpp/api/url.m3u8?ch_id=89d87bcb-9b86-4234-88cc-2a7d84420468&type_name=CHANNEL&apikey=XWGIP8FAB4
+  thumb: https://img.coupangstreaming.com/events/89d87bcb-9b86-4234-88cc-2a7d84420468/story-art/fd398a5a-92f0-49a1-a6ca-36868955b81a.jpeg
+  title: YTN
+  type: featurette
+- mode: m3u8
+  param: https://ff.bonik.me/ff_cpp/api/url.m3u8?ch_id=b2fb9a0a-8ce4-4fa5-92cf-b989d822ece9&type_name=CHANNEL&apikey=XWGIP8FAB4
+  thumb: https://img.coupangstreaming.com/events/b2fb9a0a-8ce4-4fa5-92cf-b989d822ece9/story-art/f70da28e-bc3c-4011-80cc-4988169c46d1.jpeg
+  title: 한국경제TV
+  type: featurette
+- mode: m3u8
+  param: https://ff.bonik.me/ff_cpp/api/url.m3u8?ch_id=067ce7ac-32e9-4b62-b118-cb231b4da2db&type_name=CHANNEL&apikey=XWGIP8FAB4
+  thumb: https://img.coupangstreaming.com/events/067ce7ac-32e9-4b62-b118-cb231b4da2db/story-art/839fa32a-7392-443e-a5a3-4848fc2e3fc2.jpeg
+  title: 머니투데이방송
+  type: featurette
+- mode: m3u8
+  param: https://ff.bonik.me/ff_cpp/api/url.m3u8?ch_id=3dafe7a6-0600-4993-b2fe-37208affd6b2&type_name=CHANNEL&apikey=XWGIP8FAB4
+  thumb: https://img.coupangstreaming.com/events/3dafe7a6-0600-4993-b2fe-37208affd6b2/story-art/5ff10420-4703-48ce-93cb-b71dac8f5909.jpeg
+  title: 연합뉴스TV
+  type: featurette
+genres: Live
+posters: http://localhost:7999/poster/Cppl.webp
+primary: true
+summary: ''
+title: 쿠팡플레이
+year: '2024'

@@ -1,0 +1,18 @@
+code: naversports
+extras:
+- mode: m3u8
+  param: https://ff.bonik.me/ff_nsports/api/url.m3u8?ch_id=5222456&apikey=XWGIP8FAB4
+  thumb: https://livecloud-thumb.akamaized.net/sports/livecloud/KR/stream/12324673/live/5222456/record/26978127/thumbnail/image_1080.jpg
+  title: '[당구] 2024 울산광역시 전국장애인당구대회'
+  type: featurette
+- mode: m3u8
+  param: https://ff.bonik.me/ff_nsports/api/url.m3u8?ch_id=5328793&apikey=XWGIP8FAB4
+  thumb: https://livecloud-thumb.akamaized.net/sports/livecloud/KR/stream/9177407/live/5328793/record/26978551/thumbnail/image_1080.jpg
+  title: '[바둑] 제29회 LG배 조선일보 기왕전'
+  type: featurette
+genres: Live
+posters: http://localhost:7999/poster/Naver_Sports.webp
+primary: true
+summary: ''
+title: 네이버 스포츠
+year: '2024'
