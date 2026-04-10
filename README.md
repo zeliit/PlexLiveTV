@@ -2,8 +2,7 @@
 Plex에서 부가영상 기능을 통해 실시간 TV 시청
 
 ## 설정 파일
-liveTV.ini.sample 파일 참조하여  
-ini 파일을 수정하여 사용  
+liveTV.ini.sample 파일 참조하여 ini 파일을 수정하여 사용  
 YOUR_SECTION_ID 값은 실제 라이브러리의 ID(숫자)를 입력해야함
 
 
