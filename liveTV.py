@@ -56,6 +56,8 @@ def get_spotv_thumb(param):
     base = 'https://raw.githubusercontent.com/zeliit/PlexLiveTV/main/thumb'
     if 'ch=spotv2' in param:
         return f'{base}/spotv2.jpg'
+    elif 'ch=spotvgnh' in param:
+        return f'{base}/spotvgnh.jpg'
     elif 'ch=spotv' in param:
         return f'{base}/spotv.png'
     elif 'ch=primeplus' in param:
@@ -64,8 +66,6 @@ def get_spotv_thumb(param):
         return f'{base}/prime2.jpg'
     elif 'ch=prime' in param:
         return f'{base}/prime.jpg'
-    elif 'ch=spotvgnh' in param:
-        return f'{base}/spotvgnh.jpg'
     else:
         return None
 
