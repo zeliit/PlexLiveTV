@@ -53,7 +53,7 @@ def make_yaml(show_data, target_path):
 
 # 스포티비 썸네일 얻기
 def get_spotv_thumb(param):
-    base = 'https://raw.githubusercontent.com/zeliit/PlexLiveTV/main/thumb/SPOTV'
+    base = 'https://raw.githubusercontent.com/zeliit/PlexLiveTV/main/thumb'
     if 'ch=spotv2' in param:
         return f'{base}/spotv2.jpg'
     elif 'ch=spotv' in param:
