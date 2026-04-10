@@ -14,7 +14,7 @@ YOUR_SECTION_ID 값은 실제 라이브러리의 ID(숫자)를 입력해야함
 ```
 
 # 실행 방법
-## 기본(약 5분 후 종료됨)
+## 기본
 ```
 python3 /mnt/PlexLiveTV/liveTV.py
 ```
