@@ -109,7 +109,7 @@ def get_yaml_from_spotv_m3u(m3u_path, yaml_path):
         'primary': True,
         'code': 'spotv',
         'title': '스포티비',
-        'posters': f'{app_path}/poster/SPOTV.webp',
+        'posters': 'https://raw.githubusercontent.com/zeliit/PlexLiveTV/main/poster/SPOTV.webp',
         'summary': f'SPOTV 채널\n{current_time}',
         'extras': extra_data
     }
@@ -240,7 +240,7 @@ def get_yaml_from_alive_m3u(m3u_path, yaml_path):
         'primary': True,
         'code': 'alive',
         'title': 'ALIVE',
-        'posters': f'{app_path}/poster/Alive.webp',
+        'posters': 'https://raw.githubusercontent.com/zeliit/PlexLiveTV/main/poster/Alive.webp',
         'summary': f'ALIVE 채널\n{current_time}',
         'extras': extra_data
     }
