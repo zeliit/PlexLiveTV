@@ -52,22 +52,18 @@ def make_yaml(show_data, target_path):
     with open(target_path, 'w', encoding="utf-8") as outfile:
         yaml.dump(show_data, outfile, sort_keys=False, allow_unicode=True)
 
-# 스포티비 썸네일 얻기(klive_plus용)
-def get_spotv_thumb(param):    
-    if 'ch_id=9' in param:
-        return 'https://cdn.spotvnow.co.kr/src/upload/image/20211215/710e7a39f7910d4d828047e1222e2dce.png'
-    elif 'ch_id=10' in param:
-        return 'https://cdn.spotvnow.co.kr/src/upload/image/20211215/55509fff870629e4db8865ed79988c56.png'
-    elif 'ch_id=15' in param:
-        return 'https://cdn.spotvnow.co.kr/src/upload/image/20211215/dfc390d3df155cbaf02be7da5c9a92af.png'
-    elif 'ch_id=11' in param:
-        return 'https://cdn.spotvnow.co.kr/src/upload/image/20211215/0011057bb69a02e3b3827ab82b57b849.png'
-    elif 'ch_id=1' in param:
-        return 'https://cdn.spotvnow.co.kr/src/upload/image/20211215/452e738814aba6b8dbe3688929368a6d.png'
-    elif 'ch_id=2' in param:
-        return 'https://cdn.spotvnow.co.kr/src/upload/image/20211215/3daa55ea25c6274dea97f35e170de79d.png'
-    elif 'ch_id=3' in param:
-        return 'https://cdn.spotvnow.co.kr/src/upload/image/20211215/0bc2fb062edbd8f2a05b64e291b148b8.png'
+# 스포티비 썸네일 얻기
+def get_spotv_thumb(param):
+    if 'ch=spotv2' in param:
+        return 'https://cdn.spotvnow.co.kr/src/upload/image/20240129/85fc8864f6e9f6e406a87e96018d5c7b_f.jpg'
+    elif 'ch=spotv' in param:
+        return 'https://cdn.spotvnow.jp/upload/image/20240129/697d811819ab325bc28ab73a481c55d8.png'
+    elif 'ch=primeplus' in param:
+        return 'https://cdn.spotvnow.co.kr/src/upload/image/20240304/6d61fac7025a4342f30b202cea2a9151_f.jpg'
+    elif 'ch=prime2' in param:
+        return 'https://cdn.spotvnow.co.kr/src/upload/image/20240304/0a8c4b3d0c7594aa80cfa53c4c9454b4_f.jpg'
+    elif 'ch=prime' in param:
+        return 'https://cdn.spotvnow.co.kr/src/upload/image/20240304/a2f692479600cfa669eb274d7d831a28_f.jpg'
     else:
         return None
 
