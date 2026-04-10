@@ -1,0 +1,14 @@
+[ALIVE]
+alive_m3u_url   = https://your-ff-url/alive/api/m3u?apikey=YOUR_APIKEY
+alive_m3U_path  = ./alive/alive.m3u
+alive_yaml_path = ./alive/show.yaml
+
+[SPOTV]
+spotv_m3u_url   = https://your-ff-url/ff_spotvnow/api/m3u_repack?apikey=YOUR_APIKEY
+spotv_m3u_path  = ./SPOTV/spotv.m3u
+spotv_yaml_path = ./SPOTV/show.yaml
+
+[PLEX]
+plex_url   = https://your-plex-url
+plex_token = YOUR_PLEX_TOKEN
+section_id = YOUR_SECTION_ID

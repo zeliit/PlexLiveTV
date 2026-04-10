@@ -1,10 +1,5 @@
-import requests, yaml, re, os
+import requests, yaml, os, configparser
 from datetime import datetime
-import subprocess
-from urllib.parse import urlparse, parse_qs
-import time
-import threading
-import configparser
 
 current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 timestamp = datetime.now().strftime("?v=%Y%m%d%H%M%S")
@@ -13,41 +8,23 @@ timestamp = datetime.now().strftime("?v=%Y%m%d%H%M%S")
 app_path = os.path.dirname(os.path.realpath(__file__))
 os.chdir(app_path)
 
-# ConfigParser
+# liveTV.ini에서 설정 불러오기
 config = configparser.ConfigParser()
 config.optionxform = str
 config.read(f'{app_path}/liveTV.ini', encoding='UTF8')
 
-# .ini파일에서 정보 불러오기
 settings = config['ALIVE']
-alive_m3u_url = settings["alive_m3u_url"]
-alive_m3U_path = settings["alive_m3U_path"]
+alive_m3u_url   = settings["alive_m3u_url"]
+alive_m3U_path  = settings["alive_m3U_path"]
 alive_yaml_path = settings["alive_yaml_path"]
 
 settings = config['SPOTV']
-spotv_yaml_url = settings["spotv_yaml_url"]
+spotv_m3u_url   = settings["spotv_m3u_url"]
+spotv_m3u_path  = settings["spotv_m3u_path"]
 spotv_yaml_path = settings["spotv_yaml_path"]
 
-settings = config['CPPL']
-cppl_yaml_url = settings["cppl_yaml_url"]
-cppl_yaml_path = settings["cppl_yaml_path"]
-
-settings = config['NSPORTS']
-nsports_yaml_url = settings["nsports_yaml_url"]
-nsports_yaml_path = settings["nsports_yaml_path"]
-
-settings = config['SSTVPLUS']
-sstvplus_yaml_url = settings["sstvplus_yaml_url"]
-sstvplus_yaml_path = settings["sstvplus_yaml_path"]
-
-settings = config['IMAGE_SERVER']
-image_server_folder = settings["image_server_folder"]
-image_server_ip = settings["image_server_ip"]
-image_server_port = settings["image_server_port"]
-image_server_url = f'{image_server_ip}:{image_server_port}'
-
 settings = config['PLEX']
-plex_url = settings["plex_url"]
+plex_url   = settings["plex_url"]
 plex_token = settings["plex_token"]
 section_id = settings["section_id"]
 
@@ -61,11 +38,14 @@ def save_response_to_file(url, file_path):
             with open(file_path, "wb") as f:
                 f.write(response.content)
             print(f"응답이 {file_path}에 성공적으로 저장되었습니다.")
+            return True
         else:
             print(f"요청이 실패했습니다. 상태 코드: {response.status_code}")
+            return False
 
     except requests.exceptions.RequestException as e:
         print(f"요청중 오류가 발생했습니다: {e}")
+        return False
 
 # data를 yaml파일로 작성
 def make_yaml(show_data, target_path):
@@ -89,7 +69,7 @@ def get_spotv_thumb(param):
     elif 'ch_id=3' in param:
         return 'https://cdn.spotvnow.co.kr/src/upload/image/20211215/0bc2fb062edbd8f2a05b64e291b148b8.png'
     else:
-        return f'{image_server_url}/default/spotv_default.webp'
+        return None
 
 # # 스포티비 채널 ID 추출 (요청 속도나 서버상태에 따라 오류 잦음)
 # def get_spotv_ch_id(param):    
@@ -103,64 +83,42 @@ def get_spotv_thumb(param):
 #     get_thumb_from_url(ch_id, param)
 #     return f'{image_server_url}/{ch_id}.jpg'    
 
-# 스포티비 m3u를 plex용 yaml로 변환(klive_plus용)
+# 스포티비 m3u를 plex용 yaml로 변환
 def get_yaml_from_spotv_m3u(m3u_path, yaml_path):
-
     extra_data = []
     with open(m3u_path, "r", encoding='utf-8') as m3u_file:
         lines = m3u_file.readlines()
 
-        for line in lines:
+        for i, line in enumerate(lines):
             if line.strip().startswith("#EXTINF:-1"):
                 start_index = line.find("tvg-name=")
                 if start_index != -1:
                     end_index = line.find('"', start_index + 10)
                     title = line[start_index + 10 : end_index].strip()
-                    param = lines[lines.index(line)+1].strip()
+                    param = lines[i + 1].strip()
                     content = {
-                        'mode': "m3u8",
-                        'type': "featurette",
+                        'mode': 'm3u8',
+                        'type': 'featurette',
                         'param': param,
                         'title': title,
                         'thumb': get_spotv_thumb(param),
                     }
-                extra_data.append(content)
+                    extra_data.append(content)
+
     show_data = {
-        'primary' : True,
-        'code' : 'spotv',
-        'title' : "스포티비",
-        'posters': f"{image_server_url}/poster/SPOTV.webp",
-        'summary': f"SPOTV 채널\n{current_time}",
-        'extras' : extra_data
-        }
+        'primary': True,
+        'code': 'spotv',
+        'title': '스포티비',
+        'posters': f'{app_path}/poster/SPOTV.webp',
+        'summary': f'SPOTV 채널\n{current_time}',
+        'extras': extra_data
+    }
     make_yaml(show_data, yaml_path)
 
 
-# 스트리밍 URL에서 썸네일 얻기(ffmpeg 이용)
-def get_thumb_from_url(ch_name, url):
-    try:
-        # FFmpeg 명령어 실행
-        subprocess.run(["ffmpeg",
-                       "-protocol_whitelist", "file,http,https,tcp,udp,tls,crypto",
-                       "-i", url,
-                       "-y",
-                       "-vframes", "1",
-                       f"{image_server_folder}/{ch_name}.jpg"],
-                      check=True)
-        
-        # 이미지 작성 확인
-        if os.path.exists(f"{image_server_folder}/{ch_name}.jpg"):
-            return True
-        else:
-            return False
-    
-    except subprocess.CalledProcessError:
-        # FFmpeg 명령 실행 에러 발생 시
-        return False
-
 
 # 채널 이름에서 Alive 썸네일 얻기
-def get_alive_thumb(ch_name, url):
+def get_alive_thumb(ch_name):
     # 지상파        
     if ch_name == 'SBS':
         return f'https://image.wavve.com/v1/thumbnails/480_270_20_80/live/thumbnail/S01.jpg{timestamp}'
@@ -176,10 +134,7 @@ def get_alive_thumb(ch_name, url):
     elif ch_name == 'MBC every1':
         return f'https://image.wavve.com/v1/thumbnails/480_270_20_80/live/thumbnail/M03.jpg{timestamp}'
     elif ch_name == 'KBS WORLD':
-        ch_name = 'KBSWORLD'
-        get_thumb_from_url(ch_name, url)
-        return f'{image_server_url}/{ch_name}.jpg{timestamp}'
-        # return 'https://image.wavve.com/v1/thumbnails/480_270_20_80/BMS/Channelimage30/image/K03.jpg'
+        return 'https://image.wavve.com/v1/thumbnails/480_270_20_80/BMS/Channelimage30/image/K03.jpg'
     elif ch_name == 'SBS funE':
         return f'https://image.wavve.com/v1/thumbnails/480_270_20_80/live/thumbnail/S04.jpg{timestamp}'
     # 스포츠
@@ -204,16 +159,10 @@ def get_alive_thumb(ch_name, url):
     elif ch_name == 'SBS M':
         return f'https://image.wavve.com/v1/thumbnails/480_270_20_80/live/thumbnail/S09.jpg{timestamp}'
     elif ch_name == 'K POP':
-        ch_name = 'KPOP'
-        get_thumb_from_url(ch_name, url)
-        return f'{image_server_url}/{ch_name}.jpg{timestamp}'
-        # return 'https://program-image.cloud.sbs.co.kr/kpop.jpg'
+        return 'https://program-image.cloud.sbs.co.kr/kpop.jpg'
     # 어린이
     elif ch_name == 'KBS KIDS':
-        ch_name = 'KBSKIDS'
-        get_thumb_from_url(ch_name, url)
-        return f'{image_server_url}/{ch_name}.jpg{timestamp}'
-        # return 'https://img.kbs.co.kr/kbs/232x130/padmin.static.kbs.co.kr/live/2021/5/28/1622175270598_252287.jpg'
+        return 'https://img.kbs.co.kr/kbs/232x130/padmin.static.kbs.co.kr/live/2021/5/28/1622175270598_252287.jpg'
     # 여성/패션
     elif ch_name == 'KBS Story':
         return f'https://image.wavve.com/v1/thumbnails/480_270_20_80/live/thumbnail/K09.jpg{timestamp}'
@@ -222,10 +171,7 @@ def get_alive_thumb(ch_name, url):
         return f'https://img.kbs.co.kr/kbs/232x130/padmin.static.kbs.co.kr/live/2021/8/6/1628236007412_271532.jpg{timestamp}'
     # 뉴스/경제
     elif ch_name == 'KBS NEWS D':
-        ch_name = 'KBSNEWSD'
-        get_thumb_from_url(ch_name, url)
-        return f'{image_server_url}/{ch_name}.jpg{timestamp}'
-        # return 'https://img.kbs.co.kr/kbs/232x130/padmin.static.kbs.co.kr/live/2021/11/5/1636096742321_283901.jpg'
+        return 'https://img.kbs.co.kr/kbs/232x130/padmin.static.kbs.co.kr/live/2021/11/5/1636096742321_283901.jpg'
     elif ch_name == 'SBS BIZ':
         return f'https://image.wavve.com/v1/thumbnails/480_270_20_80/live/thumbnail/S06.jpg{timestamp}'
     # 다큐
@@ -267,39 +213,38 @@ def get_alive_thumb(ch_name, url):
     elif ch_name == 'KBS WORLD ENGLISH':
         return 'https://img.kbs.co.kr/kbs/232x130/programres.kbs.co.kr/i0000-2103/2022/5/2/1651479309808_381557.jpg'                                                                                                                     
     else:
-        return f'{image_server_url}/default/alive_default.webp'
+        return None
 
 # Alive m3u를 plex용 yaml로 변환
 def get_yaml_from_alive_m3u(m3u_path, yaml_path):
-
     extra_data = []
     with open(m3u_path, "r", encoding='utf-8') as m3u_file:
         lines = m3u_file.readlines()
 
-        for line in lines:
+        for i, line in enumerate(lines):
             if line.strip().startswith("#EXTINF:-1"):
                 start_index = line.find("tvg-name=")
                 if start_index != -1:
                     end_index = line.find('"', start_index + 10)
                     title = line[start_index + 10 : end_index].strip()
-                    param = lines[lines.index(line)+1].strip()
+                    param = lines[i + 1].strip()
                     content = {
-                        'mode': "m3u8",
-                        'type': "featurette",
+                        'mode': 'm3u8',
+                        'type': 'featurette',
                         'param': param,
                         'title': title,
-                        'thumb': get_alive_thumb(title, param),
+                        'thumb': get_alive_thumb(title),
                     }
-                extra_data.append(content)
+                    extra_data.append(content)
     show_data = {
-        'primary' : True,
-        'code' : 'alive',
-        'title' : "ALIVE",
-        'posters': f"{image_server_url}/poster/Alive.webp",
-        'summary': f"ALIVE 채널\n{current_time}",
-        'extras' : extra_data
-        }
-    make_yaml(show_data, yaml_path)    
+        'primary': True,
+        'code': 'alive',
+        'title': 'ALIVE',
+        'posters': f'{app_path}/poster/Alive.webp',
+        'summary': f'ALIVE 채널\n{current_time}',
+        'extras': extra_data
+    }
+    make_yaml(show_data, yaml_path)
 
 # Plex 특정 섹션 리프레시
 def refresh_section_metadata(plex_url, plex_token, section_id):
@@ -312,100 +257,16 @@ def refresh_section_metadata(plex_url, plex_token, section_id):
     except requests.exceptions.RequestException as e:
         print(f"Error occurred while refreshing metadata: {e}")
 
-# yaml 특정 필드 업데이트
-def update_yaml(file_path, field, new_value):
-    """
-    YAML 파일의 지정된 필드 값을 변경합니다.
-    
-    Args:
-    file_path (str): YAML 파일의 경로
-    field (str): 변경할 필드 이름
-    new_value (str): 새로운 값
-    """
-    with open(file_path, 'r', encoding='utf-8') as file:
-        data = yaml.safe_load(file)
-    
-    data[field] = new_value
-    
-    with open(file_path, 'w', encoding='utf-8') as file:
-        yaml.dump(data, file, default_flow_style=False, allow_unicode=True)
-
-# 이미지 서버 시작(rclone 이용)
-def start_image_server():
-    try:
-        # rclone 명령어 실행
-        proc = subprocess.Popen(["rclone",
-                             "serve", "webdav",
-                             f"{image_server_folder}",
-                             "--addr", f"0.0.0.0:{image_server_port}",
-                             "--read-only"],
-                            stdout=subprocess.PIPE,
-                            stderr=subprocess.PIPE)
-        print('이미지 서버가 시작되었습니다.')
-        return proc
-    except subprocess.CalledProcessError:
-        # rclone 명령 실행 에러 발생 시
-        return None
-
-# 함수 백그라운드 실행
-def run_in_background(function):
-    def wrapper():
-        try:
-            function()
-        except Exception as e:
-            print(f'{function.__qualname__} 프로세스 실행 중 에러 발생: {str(e)}')
-
-    thread = threading.Thread(target=wrapper)
-    thread.start()
-    print(f'{function.__qualname__} 프로세스 백그라운드 실행 시작')
-
-# 함수 타이머(X초 후 종료)
-def run_with_timer(function, duration_seconds=300):
-    start_time = time.time()
-    proc = function()
-    
-    if proc is None:
-        print(f"{function.__qualname__}에 실패했습니다.")
-        return
-    
-    while True:
-        if time.time() - start_time >= duration_seconds:
-            print(f"{function.__qualname__}을(를) 종료합니다.")
-            proc.terminate()
-            break
-        time.sleep(1)
-
-# 이미지 서버 시작
-run_in_background(lambda: run_with_timer(start_image_server, 295))
 
 # Alive yaml 작성
 if alive_m3u_url:
-    save_response_to_file(alive_m3u_url, alive_m3U_path)
-    get_yaml_from_alive_m3u(alive_m3U_path, alive_yaml_path)
+    if save_response_to_file(alive_m3u_url, alive_m3U_path):
+        get_yaml_from_alive_m3u(alive_m3U_path, alive_yaml_path)
 
 # 스포티비 yaml 작성
-if spotv_yaml_url:
-    save_response_to_file(spotv_yaml_url, spotv_yaml_path)
-    update_yaml(spotv_yaml_path, 'title', '스포티비')
-    update_yaml(spotv_yaml_path, 'posters', f'{image_server_url}/poster/SPOTV.webp')    
+if save_response_to_file(spotv_m3u_url, spotv_m3u_path):
+    get_yaml_from_spotv_m3u(spotv_m3u_path, spotv_yaml_path)
 
-# 쿠팡플레이 yaml 작성
-if cppl_yaml_url:
-    save_response_to_file(cppl_yaml_url, cppl_yaml_path)
-    update_yaml(cppl_yaml_path, 'title', '쿠팡플레이')
-    update_yaml(cppl_yaml_path, 'posters', f'{image_server_url}/poster/Cppl.webp')
-
-# 네이버 스포츠 yaml 작성
-if nsports_yaml_url:
-    save_response_to_file(nsports_yaml_url, nsports_yaml_path)
-    update_yaml(nsports_yaml_path, 'title', '네이버 스포츠')
-    update_yaml(nsports_yaml_path, 'posters', f'{image_server_url}/poster/Naver_Sports.webp')
-
-# 삼성TV플러스 yaml 작성
-if sstvplus_yaml_url:
-    save_response_to_file(sstvplus_yaml_url, sstvplus_yaml_path)
-    update_yaml(sstvplus_yaml_path, 'title', '삼성TV 플러스')
-    update_yaml(sstvplus_yaml_path, 'posters', f'{image_server_url}/poster/SamsungTV.webp')
 
 # Plex 실시간 TV 리프레시
 if plex_url and plex_token and section_id:
