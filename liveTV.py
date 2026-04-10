@@ -57,7 +57,7 @@ def get_spotv_thumb(param):
     if 'ch=spotv2' in param:
         return f'{base}/spotv2.jpg'
     elif 'ch=spotvgnh' in param:
-        return f'{base}/spotvgnh.jpg'
+        return f'{base}/spotvgnh2.jpg'
     elif 'ch=spotv' in param:
         return f'{base}/spotv.png'
     elif 'ch=primeplus' in param:
