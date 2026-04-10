@@ -19,7 +19,7 @@ YOUR_SECTION_ID 값은 실제 라이브러리의 ID(숫자)를 입력해야함
 python3 /mnt/PlexLiveTV/liveTV.py
 ```
 
-## 크론탭
+## 크론탭 5분 세팅 할 경우
 ```
 * */5 * * * /usr/bin/python3 /mnt/PlexLiveTV/liveTV.py
 ```
